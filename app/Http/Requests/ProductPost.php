@@ -13,7 +13,7 @@ class ProductPost extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,9 +26,10 @@ class ProductPost extends FormRequest
         return [
             'name' => 'required|max:100|min:1',
             'size' => 'required|max:2|min:1',
-            'observations' => 'nullable|max:500',
-            'stock' => 'required|numeric|max:1|min:500',
-            'boarding' => 'required|date_format:Y-m-d H:i:s'
+            'observations' => 'required|max:500',
+            'stock' => 'required|numeric|min:1|max:500',
+            'boarding' => 'required|before_or_equal:today',
+            'brand_id' => 'required|exists:brands,id'
             //
         ];
     }
